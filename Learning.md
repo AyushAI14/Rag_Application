@@ -1,17 +1,39 @@
-What is Rag Applications?
-Way to optimize The LLM ,so it gain experience of Organisation internal data other than its training data.
+# What is RAG Applications?
 
-Why Rag?
-Rag Extend the scope of a llm on a specific domain
-It is cost efficient accurate
+A way to optimize LLMs so they gain experience from an organization’s internal data, beyond their training data.
 
+---
 
-Solution that Rag Give-
-Problem1 - Taking a recent model GPT-5 which was launch in  Aug  ,so it will be trained on data till that date only , so if we try to ask question related to september , it will start hallocinating[To look Cool] 
-Problem2 - Lets take a example of a statup, who have their polices,finance,Hr data confidential and they want to make a chatbot of it , so the first Solution is to fine tune a model with will be very expensive and time-consuming and remember data will keep updating 
+## Why RAG?
 
-so , now comes the RAG 
-It is accurate,update everytime,and merge with LLM to give nice result
+- Extends the scope of an LLM on a specific domain  
+- Cost-efficient  
+- More accurate  
 
-Working of Rag
+---
 
+## Solutions that RAG Provides
+
+### Problem 1
+Taking a recent model **GPT-5** which was launched in August — it is trained only on data up to that date.  
+If we try to ask a question related to **September**, it may start hallucinating (making things up).  
+
+### Problem 2
+Consider a startup that has **policies, finance, HR data** as confidential information and wants to build a chatbot.  
+
+- Fine-tuning a model would be **expensive and time-consuming**  
+- Data would keep **updating continuously**  
+
+---
+
+## So, here comes RAG
+
+- Accurate  
+- Updates every time  
+- Merges with LLM to provide better results  
+
+---
+
+## Working of RAG
+
+<img width="1280" height="853" alt="RAG Workflow" src="https://github.com/user-attachments/assets/eb1b3a52-a804-4f6b-9055-7610244d272b" />
