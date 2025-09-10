@@ -272,3 +272,54 @@ rm = RetreivalManager(vectordb, embeddingManager)
 ```
 
 ### Process 2.2 : Generation
+
+```
+class GeminiLLM:
+    def __init__(self,model_name:str="gemini-2.5-flash",api_key:str=None):
+        """
+        Intializing Gemini 
+        Arg:
+            model_name : This contain which model to use
+            api_key : This will take gemini api_key
+        """
+        self.model_name = model_name
+        self.api_key=api_key or os.getenv('GEMINI_API')
+        if not self.api_key:
+            print("Api key is not feeding to the LLM")
+        self.llm = ChatGoogleGenerativeAI(
+            api_key=self.api_key,
+            model=self.model_name,
+            max_output_tokens=1024,
+            temperature=0.5
+        )
+
+        print(f"Gemini has been intialized, for model name {self.model_name} ")
+
+        ## 2. Simple RAG function: retrieve context + generate response
+    def rag_simple(self,query,retriever,top_k=3):
+        ## retriever the context
+        results=retriever.retreive(query,top_k=top_k)
+        context="\n\n".join([doc['content'] for doc in results]) if results else ""
+        if not context:
+            return "No relevant context found to answer the question."
+        
+        ## generate the answwer using GROQ LLM
+        prompt=f"""Use the following context to answer the question concisely.
+            Context:
+            {context}
+
+            Question: {query}
+
+            Answer:"""
+        
+        response = self.llm.invoke([prompt])
+
+        return response.content
+r = GeminiLLM()
+```
+**Output**
+Outputs are quite crazy it really reading the context and giving the output base on pdf i feed
+```
+r.rag_simple("what is this laptop DELL Vostro Core i3 10th Gen , and give me more info about it",rm)
+'This is a **DELL Vostro Core i3 10th Gen - (8 GB/512 GB SSD/Windows 10) Vostro 3401 Thin and Light Laptop**.\n\nMore info:\n*   **Model:** Vostro 3401\n*   **Processor:** Core i3 10th Gen\n*   **RAM:** 8 GB\n*   **Storage:** 512 GB SSD\n*   **Operating System:** Windows 10\n*   **Type:** Thin and Light Laptop\n*   **Warranty:** 1 Year Onsite Warranty\n*   **HSN/SAC:** 84713010\n*   **Serial No:** 1NBSYH3\n*   **Gross Price:** ₹35990.00\n*   **Discount:** ₹2500.00\n*   **Taxable Value:** ₹28381.36\n*   **IGST (18.0%):** ₹5108.64\n*   **Final Price (after discount & tax):** ₹33490.00'
+```
